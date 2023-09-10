@@ -1,0 +1,133 @@
+{% extends 'snippets/layout.html' %}
+
+{% load static i18n %}
+
+{% block content %} 
+
+{% comment %} CARD FOR FRIST SECTION {% endcomment %}
+<div class="container text-center">
+  <div class="row justify-content-md-center">
+    <div class="col-md-3 mt-4">
+
+      {% if object %}
+
+      <div class="card" style="width: 18rem;">
+        {% comment %} TAKE IN COUNT THIS {% endcomment %}
+        {{data_img|safe}}
+        <div class="card-body">
+          <p class="card-text">{{data_caption|truncatewords:35}}</p>
+        </div>
+
+        <div class="card" style="width: 18rem;">
+
+          <ul class="list-group list-group-flush">
+            {% comment %} GLOBAL URL INFO SECTION {% endcomment %}
+
+            <li class="list-group-item list-group-item-primary"> <a href="{{ object.formated_domain }}">{{ object.formated_domain }}</a></li>
+            {% comment %} SSL INFO SECTION {% endcomment %}
+            <li class={% if object.ssl_enable %}
+                "list-group-item list-group-item-success"
+              {%else%}
+                "list-group-item list-group-item-danger"
+              {% endif %}>
+                SSL is: {{ object.ssl_enable|yesno:"On,Off" }}
+            </li>
+            {% comment %} HTPP STATUS CODE INFO SECTION {% endcomment %}
+            <li class={% if codestatus %}
+                "list-group-item list-group-item-info"
+              {%else%}
+                "list-group-item list-group-item-danger"
+              {% endif %}>
+              HTTP-Code: {% if codestatus%}{{codestatus}}{% else %}No-Response{% endif %}
+            </li>
+          </ul>
+        </div>
+        {% else %}
+          <p>No websites are available.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% comment %} CARD FOR SECOND SECTION {% endcomment %}
+<div class="container text-center">
+  <div class="row justify-content-md-center">
+    <div class="col-md-4 mt-4">
+
+      {% comment %} DNS INFO SECTION {% endcomment %}
+      <ul class="list-group mt-2">
+        <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+          DNS Information
+        </a>
+        {% comment %} A RECORD SECTION {% endcomment %}
+        <p class="d-inline-flex gap-1">
+          <li class="list-group-item d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
+            A Records
+            <span class="badge bg-primary rounded-pill">{{ a_records|length }}</span>
+          </li>
+        </p>
+
+        <div class="row">
+          <div class="col">
+            <div class="collapse multi-collapse" id="multiCollapseExample1">
+              <div class="card card-body">
+                {% for ar in a_records %}
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">A: {{ar}}</li>
+                </ul>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+        {% comment %} TXT RECORDS {% endcomment %}
+        <p class="d-inline-flex gap-1">
+          <li class="list-group-item d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
+            TXT Records
+            <span class="badge bg-primary rounded-pill">{{ txt_records|length }}</span>
+          </li>
+        </p>
+
+        <div class="row">
+          <div class="col">
+            <div class="collapse multi-collapse" id="multiCollapseExample1">
+              <div class="card card-body">
+                {% for txtr in txt_records %}
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">TXT: {{txtr}}</li>
+                </ul>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+        {% comment %} NS RECORDS {% endcomment %}
+        <p class="d-inline-flex gap-1">
+          <li class="list-group-item d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
+            NS Records
+            <span class="badge bg-primary rounded-pill">{{ ns_records|length }}</span>
+          </li>
+        </p>
+
+        <div class="row">
+          <div class="col">
+            <div class="collapse multi-collapse" id="multiCollapseExample1">
+              <div class="card card-body">
+                {% for nsr in ns_records %}
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">NS{{forloop.counter}}: {{nsr}}</li>
+                </ul>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+      
+{% endblock content %}

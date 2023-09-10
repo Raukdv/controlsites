@@ -3,28 +3,48 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse_lazy, reverse
 from django.utils import timezone
 
+#Mixin Auth system
+from django.contrib.auth.mixins import LoginRequiredMixin
+#Decorators
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
+
+#CBV
 from django.views.generic import (
     ListView,
-    DetailView
+    DetailView,
+    FormView
 )
-
-from websites.models.website import Website
 
 from websites.tools import checking
 
-class IndexListWebsiteView(ListView):
-    template_name = 'home/index.html'
+from websites.models.website import Website
+from websites.forms.website import WebsitesForm
+
+class ListWebsiteView(ListView):
+    template_name = 'websites/list.html'
     context_object_name = 'websites_list'
 
-    def get_queryset(self): 
-        """Return the last five published questions (not including those set to be published in the future)."""
-        # return Question.objects.order_by('-pub_date')[:5]
-        #return Website.objects.filter(pub_date__lte=timezone.now()).order_by("-pub_date")[:5]
+    def get_queryset(self):
         return Website.objects.all()
 
-class IndexWebsiteDetailView(DetailView):
+class WebsiteDetailView(DetailView):
     model = Website
-    template_name = 'home/detail.html'
+    template_name = 'websites/detail.html'
+
+    def get_context_data(self, **kwargs):
+        #Get context
+        context = super().get_context_data(**kwargs)
+        #Get object value just for return some info about details
+        website_obj = context.get('object', None)
+        from_class = WebsitesForm(instance=website_obj)
+        context['form'] = from_class
+
+        return context
+    
+class WebsiteDNSView(DetailView):
+    model = Website
+    template_name = 'websites/dns.html'
 
     def get_context_data(self, **kwargs):
         #Get context
@@ -38,6 +58,12 @@ class IndexWebsiteDetailView(DetailView):
             code_status = checking.website_code_status(website_obj.formated_domain)
             context['codestatus'] = f'{code_status[0]} - {code_status[1]}' if code_status else False
             
+            #DNS RECORDS INFO, JUST A, TXT AND NS values
+            dns_records = checking.dns_resolver(website_obj.domain, ['A', 'TXT', 'NS']) #<- dns_resolver required a list of records in this case those 3.
+            context['a_records'] = dns_records.get('A', None)
+            context['txt_records'] = dns_records.get('TXT', None)
+            context['ns_records'] = dns_records.get('NS', None)
+
             #IMAGE CAPTION
             data = checking.imgs_caption(website_obj.formated_domain)
             #probably this value will get you more than you expect (Basically for SEO shits about imgs or others imgs related in the home page)
@@ -57,3 +83,16 @@ class IndexWebsiteDetailView(DetailView):
                 context['data_caption'] = data_set_caption.decode() if data_set_caption.decode() != '' else 'No Caption Available'
 
         return context
+
+class WebsiteCustomFormView(FormView):
+
+    def post(self, request, *args, **kwargs):
+        website_obj = get_object_or_404(
+            Website,
+            id=request.POST.get('wbid')
+            )
+        form = WebsitesForm(request.POST, instance=website_obj)
+        if form.is_valid():
+            form.save()
+        return HttpResponseRedirect(reverse_lazy('websites:website_control_detail', args=[request.POST.get('wbid')]))
+

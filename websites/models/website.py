@@ -47,8 +47,11 @@ class Website(models.Model):
     def was_published_recently(self) -> bool:
         return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
     
-    def get_absolute_url(self):
+    def get_absolute_public_url(self):
         return reverse_lazy('panel:website_index_detail', args=[self.pk])
+    
+    def get_absolute_control_url(self):
+        return reverse_lazy('websites:website_control_detail', args=[self.pk])
     
     class Meta:
         ordering = ['pub_date']

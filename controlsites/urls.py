@@ -28,8 +28,8 @@ urlpatterns += [
         '',
         include(('panel.urls', 'panel'), namespace='panel')
     ),
-    # path(
-    #     'websites',
-    #     include(('websites.urls', 'websites'), namespace='websites')
-    # )
+    path(
+        'websites/',
+        include(('websites.urls', 'websites'), namespace='websites')
+    )
 ]
