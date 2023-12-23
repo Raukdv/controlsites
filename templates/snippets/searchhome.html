@@ -1,0 +1,27 @@
+<div class="container text-center">
+    <div class="row justify-content-md-center">
+      <div class="col-md-auto mt-4">
+        {% comment %} search form {% endcomment %}
+        <ul class="list-group-flush">
+          <form class="d-flex" role="search" action="{% url 'panel:website_index_search' %}">
+            <input type="text" name="searchhome" value="{{ query }}" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+        </ul>
+      </div>
+    </div>
+    {% if count >= 1 %}
+    <li id="hidecount" class="list-group-flush">
+        Elements found:
+        <span class="badge bg-primary rounded-pill">{{count}}</span>
+    </li>
+    {%else%}
+    {%endif%}
+</div>
+{% comment %} this for remove the alert or count {% endcomment %}
+<script>
+    const hidealert = document.getElementById("hidecount") 
+    setTimeout(() => {
+      hidealert.remove()
+    }, 8 * 1000)
+</script>

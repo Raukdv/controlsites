@@ -4,18 +4,34 @@
 
 {% block content %} 
 
+{% comment %} snippet home search {% endcomment %}
+{% include 'snippets/searchhome.html' %}
+
 <div class="container text-center">
   <div class="row justify-content-md-center">
-    <div class="col-md-auto mt-4">
+    <div class="col-md-auto mt-2">
+      {% comment %} list of items {% endcomment %}
       {% if websites_list %}
-        <ul class="list-group">
-          {% for website in websites_list %}
-            <li class="list-group-item mt-2"><a href=" {{ website.get_absolute_control_url }} ">{{ website.domain }}</li>
-          {% endfor %}
-        </ul>
+        <div class="container text-center mt-2">
+          <div class="row">
+            {% for website in websites_list %}
+              <div class="{% if count and count <= 2 %}col{%else%}col-4{%endif%}">
+                <div class="card mt-2">
+                  <h5 class="card-header">Wordpress</h5>
+                  <div class="card-body">
+                    <h5 class="card-title">{{ website.domain }}</h5>
+                    <a href="#" class="btn btn-primary">Go Detail</a>
+                    <a href="{{ website.get_absolute_public_url }}" class="btn btn-primary">Go Status</a>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
       {% else %}
-        <p>No websites are available.</p>
+      <p>No websites are available.</p>
       {% endif %}
+      {% comment %} end list of items {% endcomment %}
     </div>
   </div>
 </div>

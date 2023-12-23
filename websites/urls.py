@@ -13,18 +13,18 @@ urlpatterns = [
     ),
     #Detail Pattern
     path(
-        'detail/<int:pk>',
+        'control/detail/<int:pk>',
         views.WebsiteDetailView.as_view(),
         name='website_control_detail'
     ),
     path(
-        'dns/<int:pk>',
+        'control/dns/<int:pk>',
         views.WebsiteDNSView.as_view(),
         name='website_dns_information'
     ),
     #Get Form website for custom HTML
     path(
-        'getting-form-website',
+        'control/getting-form-website',
         views.WebsiteCustomFormView.as_view(),
         name='website_control_custom_form'
     ),

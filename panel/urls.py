@@ -13,8 +13,14 @@ urlpatterns = [
     ),
     #Detail Pattern
     path(
-        'detail/<int:pk>/',
+        'status/<int:pk>/',
         views.IndexWebsiteDetailView.as_view(),
         name='website_index_detail'
+    ),
+    #Search Pattern
+    path(
+        'searching/',
+        views.IndexSearchWebsites.as_view(),
+        name='website_index_search'
     ),
 ]

@@ -9,6 +9,7 @@ from django.views.generic import (
 )
 
 from websites.models.website import Website
+from django.db.models import Q
 
 from websites.tools import checking
 
@@ -56,4 +57,22 @@ class IndexWebsiteDetailView(DetailView):
 
                 context['data_caption'] = data_set_caption.decode() if data_set_caption.decode() != '' else 'No Caption Available'
 
+        return context
+
+class IndexSearchWebsites(ListView):
+    template_name = 'home/index.html'
+    context_object_name = 'websites_list'
+    
+    def get_queryset(self):
+        #__icontains: SELECT * FROM Producto WHERE title like 'valor' la i solo indica que no es sensible a "M" o "m"
+        filters = Q(domain__icontains=self.query())
+        return Website.objects.filter(filters) 
+
+    def query(self):
+        return self.request.GET.get('searchhome')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['query'] = self.query()
+        context['count'] = context['websites_list'].count()
         return context

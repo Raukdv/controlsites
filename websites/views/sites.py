@@ -22,7 +22,7 @@ from websites.models.website import Website
 from websites.forms.website import WebsitesForm
 
 class ListWebsiteView(ListView):
-    template_name = 'websites/list.html'
+    template_name = 'home/index.html'
     context_object_name = 'websites_list'
 
     def get_queryset(self):
