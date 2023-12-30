@@ -1,9 +1,8 @@
 from django.db import models
 from django.utils import timezone
 from django.urls import reverse_lazy
-
-
 import datetime
+
 from websites.tools.checking import(
     ssl_check,
     website_code_status
@@ -47,10 +46,13 @@ class Website(models.Model):
     def was_published_recently(self) -> bool:
         return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
     
-    def get_absolute_public_url(self):
+    def get_absolute_status_url(self):
+        return reverse_lazy('panel:website_index_stauts', args=[self.pk])
+
+    def get_absolute_index_detail_url(self):
         return reverse_lazy('panel:website_index_detail', args=[self.pk])
     
-    def get_absolute_control_url(self):
+    def get_absolute_control_detail_url(self):
         return reverse_lazy('websites:website_control_detail', args=[self.pk])
     
     class Meta:

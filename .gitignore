@@ -6,7 +6,7 @@
 *.pyc
 local_settings.py
 media/*
-static/*
+static/images/*
 *.sqlite3
 *.pid
 celerybeat-schedule

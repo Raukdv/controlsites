@@ -1,0 +1,53 @@
+{% extends 'snippets/layout.html' %}
+
+{% load static i18n %}
+
+{% block content %}
+
+{% comment %} CARD FOR FRIST SECTION {% endcomment %}
+<div class="container text-center">
+  <div class="row justify-content-md-center">
+    <div class="col-md-3 mt-4">
+
+      {% if object %}
+
+      <div class="card" style="width: 18rem;">
+        {% comment %} TAKE IN COUNT THIS {% endcomment %}
+        {{data_img|safe}}
+        <div class="card-body">
+          <p class="card-text">{{data_caption|truncatewords:35}}</p>
+        </div>
+
+        <div class="card" style="width: 18rem;">
+
+          <ul class="list-group list-group-flush">
+            {% comment %} GLOBAL URL INFO SECTION {% endcomment %}
+
+            <li class="list-group-item list-group-item-primary"> <a href="{{ object.formated_domain }}">{{ object.formated_domain }}</a></li>
+            {% comment %} SSL INFO SECTION {% endcomment %}
+            <li class={% if object.ssl_enable %}
+                "list-group-item list-group-item-success"
+              {%else%}
+                "list-group-item list-group-item-danger"
+              {% endif %}>
+                SSL is {{ object.ssl_enable|yesno:"On,Off" }}
+            </li>
+            {% comment %} HTPP STATUS CODE INFO SECTION {% endcomment %}
+            <li class={% if codestatus %}
+                "list-group-item list-group-item-info"
+              {%else%}
+                "list-group-item list-group-item-danger"
+              {% endif %}>
+              HTTP-Code: {% if codestatus%}{{codestatus}}{% else %}No-Response{% endif %}
+            </li>
+          </ul>
+        </div>
+        {% else %}
+          <p>No websites are available.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

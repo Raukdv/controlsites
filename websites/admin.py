@@ -6,6 +6,7 @@ from websites import models
 class WebsitesAdmin(admin.ModelAdmin):
     list_display = (
         '__str__',
+        'pub_date',
     )
 
     search_fields = (

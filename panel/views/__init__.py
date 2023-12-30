@@ -1,11 +1,13 @@
 from panel.views.home import (
     IndexListWebsiteView,
-    IndexWebsiteDetailView,
+    IndexWebsiteStatusView,
     IndexSearchWebsites,
+    IndexWebsiteDetailView,
 )
 
 __all__ = [
     'IndexListWebsiteView',
-    'IndexWebsiteDetailView',
+    'IndexWebsiteStatusView',
     'IndexSearchWebsites',
+    'IndexWebsiteDetailView',
 ]

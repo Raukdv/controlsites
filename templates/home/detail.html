@@ -12,18 +12,12 @@
       {% if object %}
 
       <div class="card" style="width: 18rem;">
-        {% comment %} TAKE IN COUNT THIS {% endcomment %}
-        {{data_img|safe}}
-        <div class="card-body">
-          <p class="card-text">{{data_caption|truncatewords:35}}</p>
-        </div>
-
-        <div class="card" style="width: 18rem;">
-
           <ul class="list-group list-group-flush">
+            <div class="card-header">
+              Website Information
+            </div>
             {% comment %} GLOBAL URL INFO SECTION {% endcomment %}
-
-            <li class="list-group-item list-group-item-primary"> <a href="{{ object.formated_domain }}">{{ object.formated_domain }}</a></li>
+            <li class="list-group-item list-group-item-info"><a href="{{ object.formated_domain }}">{{ object.formated_domain }}</a></li>
             {% comment %} SSL INFO SECTION {% endcomment %}
             <li class={% if object.ssl_enable %}
                 "list-group-item list-group-item-success"
@@ -32,22 +26,64 @@
               {% endif %}>
                 SSL is {{ object.ssl_enable|yesno:"On,Off" }}
             </li>
-            {% comment %} HTPP STATUS CODE INFO SECTION {% endcomment %}
-            <li class={% if codestatus %}
-                "list-group-item list-group-item-info"
-              {%else%}
-                "list-group-item list-group-item-danger"
-              {% endif %}>
-              HTTP-Code: {% if codestatus%}{{codestatus}}{% else %}No-Response{% endif %}
-            </li>
           </ul>
-        </div>
-        {% else %}
-          <p>No websites are available.</p>
-        {% endif %}
       </div>
+
+      <div class="card mt-4" style="width: 18rem;">
+        <div class="card-header">
+          Credentials Access
+        </div>
+      
+        <ul class="list-group list-group-flush">
+
+          {% if object.user and object.password %}
+
+          <!--Pop up button message username -->
+          {% comment %} <div class="popup">
+            <span class="popuptext" id="myPopupUsername">Username copy!</span>
+          </div> {% endcomment %}
+          <!--Pop up button message username end -->
+
+          <li class="list-group-item">
+            <p id="myUsername">
+              <h4>
+                {{object.user}}
+              </h4>
+            </p>
+            <a onclick="myClipboardUsername()" tabindex="0" class="btn btn-lg btn-info" role="button" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-title="Success" data-bs-content="User copied!"><i class="bi bi-clipboard-check-fill"></i></a>
+            {% comment %} <button onclick="myClipboardUsername()" type="button" class="btn btn-info"><i class="bi bi-clipboard-check-fill"></i></button> {% endcomment %}
+          </li>
+
+          <!--Pop up button message password -->
+          {% comment %} <div class="popup">
+            <span class="popuptext" id="myPopupPassword">Password copy!</span>
+          </div> {% endcomment %}
+          <!--Pop up button message password end -->
+
+          <li class="list-group-item">
+            <p id="myPassword">
+              <h4>
+                {{object.password}}
+              </h4>
+            </p>
+            <a onclick="myClipboardPassword()" tabindex="0" class="btn btn-lg btn-info" role="button" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-title="Success" data-bs-content="Password copied!"><i class="bi bi-clipboard-check-fill"></i></a>
+          </li>
+
+          {%else%}
+          <p>No pair credentials are available.</p>
+          {%endif%}
+        </ul>
+      </div>
+    {% else %}
+    <p>No websites are available.</p>
+    {% endif %}
+
     </div>
   </div>
 </div>
+
+{% comment %} include pop over functions {% endcomment %}
+{% include 'snippets/popoverbs.html' %}
+<script type="text/javascript" src="{% static "scripts/clipboard.js" %}"></script>
 
 {% endblock content %}

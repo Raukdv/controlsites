@@ -16,12 +16,12 @@
           <div class="row">
             {% for website in websites_list %}
               <div class="{% if count and count <= 2 %}col{%else%}col-4{%endif%}">
-                <div class="card mt-2">
+                <div class="card mt-3">
                   <h5 class="card-header">Wordpress</h5>
                   <div class="card-body">
                     <h5 class="card-title">{{ website.domain }}</h5>
-                    <a href="#" class="btn btn-primary">Go Detail</a>
-                    <a href="{{ website.get_absolute_public_url }}" class="btn btn-primary">Go Status</a>
+                    <a href="{{ website.get_absolute_index_detail_url }}" class="btn btn-primary">Go Detail</a>
+                    <a href="{{ website.get_absolute_status_url }}" class="btn btn-primary">Go Status</a>
                   </div>
                 </div>
               </div>
@@ -35,4 +35,5 @@
     </div>
   </div>
 </div>
+
 {% endblock content %}

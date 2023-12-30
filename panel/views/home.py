@@ -23,9 +23,9 @@ class IndexListWebsiteView(ListView):
         #return Website.objects.filter(pub_date__lte=timezone.now()).order_by("-pub_date")[:5]
         return Website.objects.all()
 
-class IndexWebsiteDetailView(DetailView):
+class IndexWebsiteStatusView(DetailView):
     model = Website
-    template_name = 'home/detail.html'
+    template_name = 'home/status.html'
 
     def get_context_data(self, **kwargs):
         #Get context
@@ -76,3 +76,7 @@ class IndexSearchWebsites(ListView):
         context['query'] = self.query()
         context['count'] = context['websites_list'].count()
         return context
+
+class IndexWebsiteDetailView(DetailView):
+    model = Website
+    template_name = 'home/detail.html'
