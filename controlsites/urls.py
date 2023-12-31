@@ -31,5 +31,9 @@ urlpatterns += [
     path(
         'websites/',
         include(('websites.urls', 'websites'), namespace='websites')
+    ),
+    path(
+        'reports/',
+        include(('reports.urls', 'reports'), namespace='reports')
     )
 ]

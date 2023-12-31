@@ -2,26 +2,26 @@
 
 {% load static i18n %}
 
-{% block content %}
+{% block content %} 
 
 {% comment %} snippet home search {% endcomment %}
-{% include 'snippets/searchhome.html' %}
+{% comment %} {% include 'snippets/searchhome.html' %} {% endcomment %}
 
 <div class="container text-center">
   <div class="row justify-content-md-center">
     <div class="col-md-auto mt-2">
       {% comment %} list of items {% endcomment %}
-      {% if websites_list %}
+      {% if reports_list %}
         <div class="container text-center mt-2">
           <div class="row">
-            {% for website in websites_list %}
-              <div class="{% if websites_list|length <= 2 %}col{%else%}col-4{%endif%}">
-                <div class="card mt-3">
+            {% for report in reports_list %}
+              <div class="{% if reports_list|length <= 2 %}col{%else%}col-4{%endif%}">
+                <div class="card mt-2">
                   <h5 class="card-header">Wordpress</h5>
                   <div class="card-body">
-                    <h5 class="card-title">{{ website.domain }}</h5>
-                    <a href="{{ website.get_absolute_index_detail_url }}" class="btn btn-primary">Go Detail</a>
-                    <a href="{{ website.get_absolute_status_url }}" class="btn btn-primary">Go Status</a>
+                    <h5 class="card-title">{{ report.from_website.domain }}</h5>
+                    <a href="#" class="btn btn-primary">Go Detail</a>
+                    <a href="{{ report.get_absolute_public_url }}" class="btn btn-primary">Go Status</a>
                   </div>
                 </div>
               </div>

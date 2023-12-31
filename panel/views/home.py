@@ -74,7 +74,6 @@ class IndexSearchWebsites(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['query'] = self.query()
-        context['count'] = context['websites_list'].count()
         return context
 
 class IndexWebsiteDetailView(DetailView):
