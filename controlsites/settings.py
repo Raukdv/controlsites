@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'websites', #Local Apps
+    'reports',
     
 ]
 
@@ -63,7 +64,7 @@ ROOT_URLCONF = 'controlsites.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')], #This will take templaes from BaseApp/templates,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')], #This will take templates from BaseApp/templates,
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

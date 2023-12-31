@@ -1,14 +1,24 @@
+STATUS_DEFAULT = ('CHECKING', 'Checking website'),
+HTTPS_STATUS_DEFAULT = ('200', 'OK')
+REQUEST_OF_DEFAULT = ('REQUEST_CHECK', 'Check website')
+
 STATUS = [
-    ('REQUEST_REMOVE', 'Remove Pls'),
-    ('REQUEST_CHECK', 'Check Pls'),
-    ('REQUEST_BACKUP', 'Backup Pls'),
-    ('REQUEST_CHECK_SSL', 'Check SSL Status Pls'),
-    ('REQUEST_TRANSFER_TO_SERVER', 'Transfer to another server (inside our systems)'),
-    ('REQUEST_TRANSFER_TO_CLIENT_PROVIDER', 'Transfer to another clients provider'),
-    ('REQUEST_ADD_TXT_DNS', 'Add the next TXT Record'),
+    ('CHECKING', 'Checking website'),
+    ('REMOVED', 'Removed website'),
+    ('CHECKED', 'Checked website'),
+    ('BACKUPED', 'Backuped website'),
+    ('TRANSFERED', 'Transfered Website'),
+    ('POSTPONED', 'Hold over/Postponed'),
 ]
 
-HTTPS_STATUS_DEFAULT = ('200', 'OK')
+REQUEST_OF = [
+    ('REQUEST_REMOVE', 'Remove website'),
+    ('REQUEST_CHECK', 'Check website'),
+    ('REQUEST_BACKUP', 'Backup website'),
+    ('REQUEST_CHECK_SSL', 'Check SSL Status'),
+    ('REQUEST_TRANSFER_TO_SERVER', 'Transfer to another server (inside our systems)'),
+    ('REQUEST_TRANSFER_TO_CLIENT_PROVIDER', 'Transfer to another clients provider'),
+]
 
 HTTPS_STATUS = [
 ('100', 'Continue'),

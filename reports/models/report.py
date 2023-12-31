@@ -3,10 +3,15 @@ from django.utils import timezone
 from django.urls import reverse_lazy
 
 import uuid
-import constants
+from reports import constants
 
 class Report(models.Model):
-    uuid = models.UUIDField(editable=False, default=uuid.uuid4, unique=True)
+
+    uuid = models.UUIDField(
+        editable=False, 
+        default=uuid.uuid4, 
+        unique=True
+    )
 
     from_website = models.ForeignKey(
         'websites.Website',
@@ -14,17 +19,34 @@ class Report(models.Model):
         verbose_name="Website"
     )
 
+    http_status = models.CharField(
+        choices=constants.HTTPS_STATUS,
+        default=constants.HTTPS_STATUS_DEFAULT,
+        verbose_name="Http Status Code"
+    )
+
+    status = models.CharField(
+        choices=constants.STATUS,
+        default=constants.STATUS_DEFAULT,
+        verbose_name="Status"
+    )
+
+    request_of = models.CharField(
+        choices=constants.REQUEST_OF,
+        default=constants.REQUEST_OF_DEFAULT,
+        verbose_name="Request of"
+    )
+
     incident_date = models.DateTimeField(
         auto_now_add = True, 
         verbose_name="incident date"
     )
 
-    description = models.TextField(max_length=700, verbose_name="Content", blank=False, null=False)
-
-    http_status = models.CharField(
-        choices=constants.HTTPS_STATUS,
-        default=constants.HTTPS_STATUS_DEFAULT,
-        verbose_name="Http Status Code"
+    description = models.TextField(
+        max_length=700, 
+        verbose_name="Description", 
+        blank=False, 
+        null=False
     )
 
     action = models.TextField(
@@ -32,14 +54,16 @@ class Report(models.Model):
         null=True
     )
 
-    status = models.CharField(
-        choices=constants.HTTPS_STATUS,
-        default=constants.HTTPS_STATUS_DEFAULT,
-        verbose_name="Http Status Code"
-    )
-
     image = models.ImageField(
-        upload_to='images/incidents', 
+        upload_to='media/incidents', 
         blank=True, 
         null=True
     )
+
+    def __str__(self) -> str:
+        return self.from_website.domain
+
+    class Meta:
+        ordering = ['incident_date']
+        verbose_name = "report"
+        verbose_name_plural = "reports"
