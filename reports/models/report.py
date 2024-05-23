@@ -5,6 +5,9 @@ from django.urls import reverse_lazy
 import uuid
 from reports import constants
 
+#For admin propuse
+# Status and Action
+
 class Report(models.Model):
 
     uuid = models.UUIDField(
@@ -24,7 +27,7 @@ class Report(models.Model):
         default=constants.HTTPS_STATUS_DEFAULT,
         verbose_name="Http Status Code"
     )
-
+    
     status = models.CharField(
         choices=constants.STATUS,
         default=constants.STATUS_DEFAULT,
@@ -60,8 +63,16 @@ class Report(models.Model):
         null=True
     )
 
+    @property
+    def img_url(self):
+        if self.image and hasattr(self.image, 'url'):
+            return self.image.url
+
     def __str__(self) -> str:
         return self.from_website.domain
+    
+    def get_absolute_report_detail_url(self):
+        return reverse_lazy('reports:report_detail', args=[self.pk])
 
     class Meta:
         ordering = ['incident_date']
