@@ -1,0 +1,35 @@
+{% extends 'snippets/layout.html' %}
+
+{% load static i18n %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row justify-content-md-center">
+      <div class="col-md-auto">
+
+        {% include 'snippets/messages.html' %}
+        
+        <form class="mt-4" method="post">
+
+            <div class="form-control container-lg">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="fieldWrapper">
+                        {{ field.errors }}
+                        <label class="form-label">{{ field.label_tag }} {{ field }}</label>
+                        {% if field.help_text %}
+                        <p class="help h6">{{ field.help_text|safe }}</p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+                <button type="submit" value="Submit" class="btn btn-primary mb-2 mt-2">Confirm</button>
+            </div>
+        
+        </form>
+        
+      </div>
+    </div>
+</div>
+
+{% endblock content%}
