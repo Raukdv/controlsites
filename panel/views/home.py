@@ -5,7 +5,8 @@ from django.utils import timezone
 
 from django.views.generic import (
     ListView,
-    DetailView
+    DetailView,
+    FormView
 )
 
 from websites.models.website import Website
@@ -64,7 +65,6 @@ class IndexSearchWebsites(ListView):
     context_object_name = 'websites_list'
     
     def get_queryset(self):
-        #__icontains: SELECT * FROM Producto WHERE title like 'valor' la i solo indica que no es sensible a "M" o "m"
         filters = Q(domain__icontains=self.query())
         return Website.objects.filter(filters) 
 
