@@ -14,11 +14,15 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import (
     ListView,
     DetailView,
-    FormView
+    FormView,
+    TemplateView
 )
 
 from .. import forms
 from ..models.report import Report
+
+class ReportHttpRefenceView(TemplateView):
+    template_name='reports/http_ref.html'
 
 class ReportFormView(FormView):
     template_name = 'reports/report_formview.html'
@@ -33,4 +37,5 @@ class ReportListView(ListView):
         return Report.objects.all()
 
 class ReportDetailView(DetailView):
-    pass
+    model = Report
+    template_name='reports/report_detail.html'
