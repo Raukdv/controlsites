@@ -24,7 +24,7 @@
               {%else%}
                 "list-group-item list-group-item-danger"
               {% endif %}>
-                SSL is {{ object.ssl_enable|yesno:"On,Off" }}
+                SSL is: {{ object.ssl_enable|yesno:"On,Off" }}
             </li>
           </ul>
       </div>
