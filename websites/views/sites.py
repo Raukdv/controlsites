@@ -8,18 +8,22 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 #Decorators
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib import messages
 
 #CBV
 from django.views.generic import (
     ListView,
     DetailView,
-    FormView
+    FormView,
 )
 
 from websites.tools import checking
 
 from websites.models.website import Website
 from websites.forms.website import WebsitesForm
+
+#SHOUL BE SETUP FOR ADMIN VIEW
 
 class ListWebsiteView(ListView):
     template_name = 'home/index.html'
@@ -96,3 +100,12 @@ class WebsiteCustomFormView(FormView):
             form.save()
         return HttpResponseRedirect(reverse_lazy('websites:website_control_detail', args=[request.POST.get('wbid')]))
 
+class WebsiteFormView(FormView):
+    template_name = 'websites/website_formview.html'
+    form_class = WebsitesForm
+    success_url = reverse_lazy('websites:website_formview')
+
+    def form_valid(self, form):
+        form.save()
+        messages.success(self.request, '{} created'.format('Domain'))
+        return HttpResponseRedirect(reverse_lazy('websites:website_formview'))
