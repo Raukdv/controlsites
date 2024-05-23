@@ -17,12 +17,18 @@ urlpatterns = [
         views.ReportFormView.as_view(),
         name='report_formview'
     ),
+#HTTP Ref Pattner
+    path(
+        'http-ref',
+        views.ReportHttpRefenceView.as_view(),
+        name='report_httpref'
+    ),
     # #Detail Pattern
-    # path(
-    #     'report/detail/<int:pk>',
-    #     views.WebsiteDetailView.as_view(),
-    #     name='website_control_detail'
-    # ),
+    path(
+        'report/detail/<int:pk>',
+        views.ReportDetailView.as_view(),
+        name='report_detail'
+    ),
     # path(
     #     'report/list/<int:pk>',
     #     views.WebsiteDNSView.as_view(),
