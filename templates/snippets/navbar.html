@@ -2,8 +2,27 @@
     <li class="nav-item">
       <a class="nav-link" href="#">Login</a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link active" aria-current="page" href="{% url 'websites:websites_list' %}">Control Panel</a>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Website Panel
+      </a>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="{% url 'panel:index' %}">List Websites</a></li>
+        <li><a class="dropdown-item" href="{% url 'websites:website_formview' %}">Add Websites</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="">Admin thing</a></li>
+      </ul>
+    </li>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Report Issue
+      </a>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="{% url 'reports:report_listview' %}">List Reports</a></li>
+        <li><a class="dropdown-item" href="{% url 'reports:report_formview' %}">Request Revision</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="#">Something else here</a></li>
+      </ul>
     </li>
     <li class="nav-item">
       <a class="nav-link disabled" aria-disabled="true">Log-out</a>
