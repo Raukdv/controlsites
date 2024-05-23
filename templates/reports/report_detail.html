@@ -1,0 +1,55 @@
+{% extends 'snippets/layout.html' %}
+
+{% load static i18n %}
+
+{% block content %}
+
+<div class="container text-center">
+  <div class="row align-items-center">
+      
+      <div class="col">
+        <ul class="list-group">
+            <li class="list-group-item active" aria-current="true">Domain Information</li>
+            <li class="list-group-item">
+              Domain: <a href="{{report.from_website.formated_domain}}">
+              <u>{{report.from_website}}</u>
+              </a>
+            </li>
+            <li class="list-group-item">
+              Response: <strong>{{report.http_status}} - {{report.get_http_status_display}}</strong> <!-- According to get_FOO_display() method -->
+            </li>
+            <li class="list-group-item list-group-item-{% if report.from_website.ssl_enable %}success{%else%}danger{% endif %}">
+              SSL is: {{ report.from_website.ssl_enable|yesno:"On,Off" }}
+            </li>
+        </ul>
+      </div>
+      
+      <div class="col">
+        <ul class="list-group">
+            <li class="list-group-item active" aria-current="true">Report Information</li>
+            <li class="list-group-item list-group-item-warning">           
+              <i class="bi bi-exclamation-triangle-fill"></i> Status: <u>{{report.get_status_display}}</u>
+            </li>
+            <li class="list-group-item">Request for: <strong>{{report.get_request_of_display}}</strong></li>
+            <li class="list-group-item">Incident registration date: <strong>{{report.incident_date}}</strong></li>
+        </ul>
+      </div>
+      
+      <div class="col">
+        <ul class="list-group">
+            <li class="list-group-item active" aria-current="true">One of three columns</li>
+            <li class="list-group-item"><strong><u>Description</u></strong>: <strong>{{report.description}}</strong></li>
+            <li class="list-group-item">Action Taken: {{report.action}}</li>
+            {% if report.image %}
+            <li class="list-group-item">
+              <a href="{{report.img_url}}">See imagen
+            </li>
+            {% else %}
+            <li class="list-group-item">No image available.</li>
+            {% endif %}
+        </ul>
+      </div>
+  </div>
+</div>
+
+{% endblock content %}

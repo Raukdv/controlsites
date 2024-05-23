@@ -20,7 +20,7 @@
                   <h5 class="card-header">Wordpress</h5>
                   <div class="card-body">
                     <h5 class="card-title">{{ report.from_website.domain }}</h5>
-                    <a href="#" class="btn btn-primary">Go Detail</a>
+                    <a class="btn btn-primary" href="{{ report.get_absolute_report_detail_url }}">Go Detail</a>
                     <a href="{{ report.get_absolute_public_url }}" class="btn btn-primary">Go Status</a>
                   </div>
                 </div>

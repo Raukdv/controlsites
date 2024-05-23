@@ -4,26 +4,30 @@
 
 {% block content %}
 
-{% comment %} <form method="post">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Submit">
-</form> {% endcomment %}
+<div class="container">
+    <div class="row justify-content-md-center">
+      <div class="col-md-auto">
 
-<form method="post">
-    {% csrf_token %}
-    {% for field in form %}
-    <div class="fieldWrapper">
-        {{ field.errors }}
-        {{ field.label_tag }} {{ field }}
-        {% if field.help_text %}
-        <p class="help">{{ field.help_text|safe }}</p>
-        {% endif %}
+        <form class="mt-4" method="post">
+
+            <div class="form-control container-lg">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="fieldWrapper">
+                        {{ field.errors }}
+                        <label class="form-label">{{ field.label_tag }} {{ field }}</label>
+                        {% if field.help_text %}
+                        <p class="help h6">{{ field.help_text|safe }}</p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+                <button type="submit" value="Submit" class="btn btn-primary mb-2 mt-2">Confirm</button>
+            </div>
+        
+        </form>
+        
+      </div>
     </div>
-    {% endfor %}
-    <input type="submit" value="Submit">
-</form>
-
-
+</div>
 
 {% endblock content%}
