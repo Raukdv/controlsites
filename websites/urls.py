@@ -22,6 +22,11 @@ urlpatterns = [
         views.WebsiteDNSView.as_view(),
         name='website_dns_information'
     ),
+    path(
+        'control/form/',
+        views.WebsiteFormView.as_view(),
+        name='website_formview'
+    ),
     #Get Form website for custom HTML
     path(
         'control/getting-form-website',
