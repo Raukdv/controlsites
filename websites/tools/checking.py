@@ -35,7 +35,6 @@ def ssl_check(hostname):
         # print('------------------------')
         return False
 
-
 def website_code_status(url):
     try:
         protocol, host, path, query, fragment = urllib.parse.urlsplit(url)
@@ -184,4 +183,22 @@ def parsing_img(texto):
         #print("No se encontró data-lazy-src en el texto.")
         valor_data_lazy_src = None
 
-    return f'<img alt="" class="card-img-top mt-2" src="{valor_data_lazy_src}" style="max-width: 280px;"/>' 
+    return f'<img alt="" class="card-img-top mt-2" src="{valor_data_lazy_src}" style="max-width: 280px;"/>'
+
+#This will verify is wwww.domain.com or domain.com is valit, avoid full/canonical urls like https://domain.com or https://www.domain.com
+'''ensures that each segment
+
+    contains at least one character and a maximum of 63 characters
+    consists only of allowed characters
+    doesn't begin or end with a hyphen.
+
+It also avoids double negatives (not disallowed), and if hostname ends in a . 
+that's OK, too. It will (and should) fail if hostname ends in more than one dot.'''
+
+def is_valid_hostname(hostname):
+    if len(hostname) > 255:
+        return False
+    if hostname[-1] == ".":
+        hostname = hostname[:-1] # strip exactly one dot from the right, if present
+    allowed = re.compile("(?!-)[A-Z\d-]{1,63}(?<!-)$", re.IGNORECASE)
+    return all(allowed.match(x) for x in hostname.split("."))
