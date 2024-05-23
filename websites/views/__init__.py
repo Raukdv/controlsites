@@ -2,7 +2,8 @@ from websites.views.sites import (
     ListWebsiteView,
     WebsiteDetailView,
     WebsiteCustomFormView,
-    WebsiteDNSView
+    WebsiteDNSView,
+    WebsiteFormView
 )
 
 __all__ = [
@@ -10,4 +11,5 @@ __all__ = [
     'WebsiteDetailView',
     'WebsiteCustomFormView',
     'WebsiteDNSView',
+    'WebsiteFormView',
 ]
